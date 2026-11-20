@@ -1,0 +1,70 @@
+<template>
+    <lightning-card title="Record Access Explainer" icon-name="utility:lock">
+        <div class="slds-p-horizontal_medium">
+            <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_small">
+                Pick a user and a record to see whether the user can access it, and why.
+            </p>
+            <lightning-record-picker
+                label="User"
+                object-api-name="User"
+                placeholder="Search users..."
+                onchange={handleUserChange}
+            ></lightning-record-picker>
+            <lightning-input
+                class="slds-m-top_small"
+                label="Record Id"
+                placeholder="e.g. 001..."
+                value={recordIdInput}
+                onchange={handleRecordChange}
+            ></lightning-input>
+            <lightning-button
+                class="slds-m-top_small"
+                variant="brand"
+                label="Explain access"
+                onclick={handleExplain}
+                disabled={isDisabled}
+            ></lightning-button>
+        </div>
+
+        <template lwc:if={isLoading}>
+            <lightning-spinner alternative-text="Checking access" size="small"></lightning-spinner>
+        </template>
+
+        <template lwc:if={error}>
+            <div class="slds-p-around_medium slds-text-color_error">{error}</div>
+        </template>
+
+        <template lwc:if={result}>
+            <div class="slds-p-around_medium">
+                <h2 class="slds-text-heading_small">
+                    {result.objectLabel} · Org-wide default: {owdLabel}
+                </h2>
+                <div class="slds-m-vertical_small summary">
+                    <span class={readClass}>Read: {readText}</span>
+                    <span class={editClass}>Edit: {editText}</span>
+                    <span class={deleteClass}>Delete: {deleteText}</span>
+                    <span class="pill">Max access: {maxAccess}</span>
+                </div>
+
+                <template lwc:if={hasReasons}>
+                    <lightning-datatable
+                        key-field="key"
+                        data={reasonRows}
+                        columns={columns}
+                        hide-checkbox-column
+                    ></lightning-datatable>
+                </template>
+                <template lwc:else>
+                    <p class="slds-text-color_weak">No access sources were found for this user and record.</p>
+                </template>
+
+                <template for:each={warningRows} for:item="warning">
+                    <div key={warning.key} class="slds-m-top_small warning">
+                        <lightning-icon icon-name="utility:warning" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        {warning.text}
+                    </div>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,31 @@
+.summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.pill {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    background: #f3f3f3;
+    font-weight: 600;
+}
+
+.pill-yes {
+    background: #e3f5e1;
+    color: #2e844a;
+}
+
+.pill-no {
+    background: #fde9e6;
+    color: #ba0517;
+}
+
+.warning {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    background: #fef1e1;
+}
