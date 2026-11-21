@@ -8,7 +8,7 @@ Pick a user and a record, and the tool shows:
 - **every layer of the sharing model** that grants that access, and where it comes from
 - **warnings** that point to the likely cause when access is missing
 
-![Record Access Explainer screenshot](docs/screenshot.png)
+![Record Access Explainer preview](docs/preview.png)
 
 ## Why I built it
 
@@ -29,7 +29,7 @@ Diagnosing record access means checking many layers by hand: profiles, permissio
 
 - **Apex**: `RecordAccessExplainer` with dynamic SOQL, Schema describe, and wrapper classes exposed with `@AuraEnabled`
 - **Lightning Web Components**: `lightning-record-picker`, `lightning-datatable`, async/await Apex calls, and error handling
-- **Apex tests**: `RecordAccessExplainerTest` with `System.runAs`, positive and negative scenarios, and the `Assert` class
+- **Apex tests**: `RecordAccessExplainerTest`, with **8 tests passing at 80% code coverage**, covering ownership, role hierarchy, queues, manual sharing, admin permissions and error handling (`System.runAs`, the `Assert` class)
 - **Salesforce DX** project structure, deployable with Salesforce CLI
 
 ## Deploy to your org
